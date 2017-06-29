@@ -1,0 +1,57 @@
+{% extends 'login/header.html' %}
+
+{% block title %}
+Blogser
+{% endblock %}
+{% block navbar2 %}
+<li><a href="{% url 'all' %}">All Employees</a></li>
+<li><a href="{% url 'add' %}">Add</a></li>
+
+{% endblock %}
+{% block navbar %}
+<form class="navbar-form navbar-left" action="/loggedIn/search_query/" method="post">{% csrf_token %}
+	<div class="form-group">
+	    <input type="text" class="form-control" placeholder="Search" name="search_box" id="search_box">
+	</div>
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>
+<li><a href="/logout/">logout</a></li>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<div>		
+	<h2> hi...{{ fullname }}..! You are Logged in</h2>
+	<p>click <a href="/logout/">here</a> to logout.</p>
+</div>
+
+
+<p>
+	
+		<h3>Employee no: <small>{{i.EmployeeNo}}</small></h3>
+		<h3>First Name: <small>{{i.FirstName|title}}</small></h3>
+		<h3 style="text-transform: capitalize;">Last Name: <small>{{i.LastName}}</small></h3>
+		<h3>Address: <small>{{i.Address}}</small></h3>
+		<h3>time: <small>{{i.CurrentTime}}</small></h3>
+		<h3>Marital status: <small>{{i.MaritalStatus}}</small></h3>
+		<h3>grade: <small>{{i.GradeEmployee}}</small></h3>
+		<h3>Higest education: <small>{{i.HigestEducation}}</small></h3>
+		<h4>Date of passing: <small>{{i.HigestEducation.Date}}</small></h3>
+		<h4>grade: <small>{{i.HigestEducation.Grade}}</small></h3>
+		<h4>remark: <small>{{i.HigestEducation.Remark}}</small></h3>
+		<h4>school: <small>{{i.HigestEducation.School}}</small></h3>
+		<a href="{% url 'delete' i.EmployeeNo %}">delete</a>
+		<a href="{% url 'update' i.EmployeeNo %}">update</a><br><br>
+		<br><hr>
+
+	
+</p>
+
+
+
+</div>
+
+{% endblock %}

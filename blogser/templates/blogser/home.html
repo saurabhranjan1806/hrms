@@ -1,0 +1,58 @@
+{% extends 'login/header.html' %}
+
+{% block title %}
+Blogser
+{% endblock %}
+{% block navbar2 %}
+<li><a href="{% url 'all' %}">All Employees</a></li>
+<li><a href="{% url 'add' %}">Add</a></li>
+
+{% endblock %}
+{% block navbar %}
+<form class="navbar-form navbar-left" action="/loggedIn/search_query/" method="post">{% csrf_token %}
+	<div class="form-group">
+	    <input type="text" class="form-control" placeholder="Search" name="search_box" id="search_box">
+	</div>
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>
+<li><a href="/logout/">logout</a></li>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<div>		
+	<h2> hi...{{ fullname }}..! You are Logged in</h2>
+	<p>click <a href="/logout/">here</a> to logout.</p>
+</div>
+
+
+<p>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Employee no</th>
+				<th>First Name</th>
+				<th colspan="2">action</th>
+			</tr>
+		</thead>
+		<tbody>
+	{% for i in t %}
+		<tr>
+			<td>{{i.EmployeeNo}}</td>
+			<td>{{i.FirstName|title}}</td>
+			<td><a href="{% url 'view' i.EmployeeNo %}">View</a></td>
+			<td><a href="{% url 'delete' i.EmployeeNo %}">Delete</a></td>
+		</tr>
+
+	{% endfor %}
+		</tbody>
+	</table>
+</p>
+
+
+</div>
+
+{% endblock %}
