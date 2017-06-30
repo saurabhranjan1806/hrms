@@ -41,7 +41,7 @@ def search(request):
 	if request.method == 'POST':
 		squery = request.POST['search_box']
 		if squery:
-			s = hrms.objects.filter(Q(FirstName__icontains=squery)|Q(LastName__icontains=squery))
+			s = hrms.objects.filter(Q(FirstName__icontains=squery)|Q(LastName__icontains=squery)|Q(Address__icontains=squery))
 			if s:
 				return render(request,'blogser/home.html',{'fullname':request.user.username,'t':s})
         	else:

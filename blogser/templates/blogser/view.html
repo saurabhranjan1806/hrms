@@ -29,7 +29,7 @@ Blogser
 </div>
 
 
-<p>
+<!-- <p>
 	
 		<h3>Employee no: <small>{{i.EmployeeNo}}</small></h3>
 		<h3>First Name: <small>{{i.FirstName|title}}</small></h3>
@@ -48,8 +48,62 @@ Blogser
 		<br><hr>
 
 	
-</p>
-
+</p> -->
+<div class="jumbotron">
+	<table class="table table-bordered">
+		<thead><center><h3>Details of {{i.FirstName|title}}</h3></center></thead>
+		<tbody>
+			<tr>
+				<td>Employee Number</td>
+				<td>{{i.EmployeeNo}}</td>
+			</tr>
+			<tr>
+				<td>First Name</td>
+				<td>{{i.FirstName}}</td>
+			</tr>
+			<tr>
+				<td>Last name</td>
+				<td>{{i.LastName}}</td>
+			</tr>
+			<tr>
+				<td>Address</td>
+				<td>{{i.Address}}</td>
+			</tr>
+			<tr>
+				<td>Grade</td>
+				<td>{{i.GradeEmployee}}</td>
+			</tr>
+			<tr>
+				<td>Marital Status</td>
+				<td>{{i.MaritalStatus}}</td>
+			</tr>
+			{% for ed in i.education_set.all %}
+			<tr>
+				<td>Education</td>
+				<td>{{ed.Education}}</td>
+			</tr>
+			<tr>
+				<td><small>Date</small></td>
+				<td><small>{{ed.Date}}</small></td>
+			</tr>
+			<tr>
+				<td><small>School</small></td>
+				<td><small>{{ed.School}}</small></td>
+			</tr>
+			<tr>
+				<td><small>Grade</small></td>
+				<td><small>{{ed.Grade}}</small></td>
+			</tr>
+			<tr>
+				<td><small>Remark</small></td>
+				<td><small>{{ed.Remark}}</small></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<button><a href="{% url 'delete' i.EmployeeNo %}">delete</a></button>
+	<button><a href="{% url 'update' i.EmployeeNo %}">update</a></button>
+</div>
 
 
 </div>
