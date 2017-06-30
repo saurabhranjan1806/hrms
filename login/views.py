@@ -5,9 +5,11 @@ from django.shortcuts import render
 from django.http import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models  import User
+import random
 
 # Create your views here.
-
+otp = 0
+user = ''
 def index(request):
 	form = UserCreationForm()
 	return render(request, 'login/home.html', {'form' : form})
@@ -17,12 +19,25 @@ def auth_view(request):
 	username = request.POST['username']
 	password = request.POST['password']
 	try:
+		global user
 		user = auth.authenticate(username=username, password=password)
-		auth.login(request, user)
+		global otp
+		otp = random.randint(100000,999999)
+		print otp
+		return render(request, 'login/otp.html')
+		# auth.login(request, user)
 	except:
 		return HttpResponseRedirect('/invalid/')
-	return HttpResponseRedirect('/loggedIn/')
+	# return HttpResponseRedirect('/loggedIn/')
 
+def auth_view2(request):
+	getotp = request.POST['otp']
+	if int(getotp)==otp:
+		auth.login(request, user)
+		return HttpResponseRedirect('/loggedIn/')
+	else:
+		return HttpResponseRedirect('/invalid/')
+	
 
 def logout(request):
 	auth.logout(request)
